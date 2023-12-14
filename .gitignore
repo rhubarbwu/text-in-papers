@@ -1,2 +1,7 @@
+iclr2023_stats
+pdffigures2
+figures
+jsons
+pdfs
 *.h5
 __pycache__
