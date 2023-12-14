@@ -17,8 +17,10 @@ def init():
 
 def clean_up(paper_id: str = None):
     for directory in ARTIFACTS:
-        if paper_id is None:
+        if paper_id is None and path.exists(directory):
             shutil.rmtree(directory)
+        if not path.exists(directory):
+            continue
         for file in listdir(directory):
             if file.startswith(paper_id):
                 remove(f"{directory}/{file}")
@@ -81,7 +83,10 @@ def count_fig_chars(paper_id: str) -> Tuple[int, int]:
             continue
 
         image = Image.open(f"figures/{fig_file}")
-        text = pytesseract.image_to_string(image)  # OCR
+        try:
+            text = pytesseract.image_to_string(image)  # OCR
+        except:
+            continue
         text = "".join([c for c in text if not c.isspace()])
         char_count = len(text)
         char_counts += char_count

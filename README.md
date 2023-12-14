@@ -33,3 +33,11 @@ python counts.py -o analytics.h5
 # second hundred
 python counts.py -o analytics.h5 -s 100 -e 200
 ```
+
+### Scoring
+
+Extract scores to matching paper IDs.
+
+```sh
+python scores.py analytics.h5
+```

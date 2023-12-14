@@ -51,7 +51,7 @@ if len(args.paper_ids) == 0:
 if args.end < 0:
     args.end = len(args.paper_ids)
 
-clean_up()
+init()
 
 for idx in tqdm(range(args.start, args.end), ncols=64):
     paper_id = args.paper_ids[idx]
@@ -68,7 +68,6 @@ for idx in tqdm(range(args.start, args.end), ncols=64):
         if complete:
             continue
 
-    init()
     download_paper(paper_id)
     extract_figures()
     char_counts, n_figs = count_fig_chars(paper_id)
