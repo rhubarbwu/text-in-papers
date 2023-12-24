@@ -14,12 +14,30 @@ Download [PDFFigures 2.0](https://github.com/allenai/pdffigures2) as a subdirect
 git clone https://github.com/allenai/pdffigures2
 ```
 
+Install [`cs` (`scala`)](https://www.scala-lang.org/download/) and [`sbt`](https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html).
+
 ### Datasets
 
 This repository is written for [ICLR2023 Statistics](https://github.com/weigq/iclr2023_stats).
 
 ```sh
 git clone https://github.com/weigq/iclr2023_stats
+```
+
+## Query by Keywords
+
+Use the following CSV template: `<query_id>:<keyword><op><keyword>:` where `<op>` is `OR` (`|`) or `AND` (`&`). For example,
+
+```csv
+query_id:patterns:paper_ids
+qml:quantum&machine&learning:
+```
+
+Running `search.py` will append the `paper_id`s of the matching submissions. For the above example,
+
+```csv
+query_id:patterns:paper_ids
+qml:quantum&machine&learning:Ry-cTiH_cus,wyjAf9GPD_,xveTeHVlF7j,o-Yxq5iicIp,ymFhZxw70uz,ySQeVdXOcx0,3wCqIZivcJx
 ```
 
 ## Analysis

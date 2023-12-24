@@ -26,6 +26,11 @@ parser.add_argument(
     default="queries.csv",
     help="path to load from and update queries",
 )
+parser.add_argument(
+    "-v",
+    "--verbose",
+    action="store_true",
+)
 args = parser.parse_args()
 
 db = DataBase(args.database_path)
@@ -46,7 +51,7 @@ def fetch_column(col_name: str = "url_id", withdraw: bool = False) -> List[str]:
 
 
 if path.exists(args.io_path):
-    df = pd.read_csv(args.io_path)
+    df = pd.read_csv(args.io_path, sep=":")
 else:
     df = pd.DataFrame({"query_id": [], "patterns": [], "paper_ids": []})
 df["paper_ids"] = df["paper_ids"].astype(str)
@@ -82,9 +87,9 @@ for idx, row in df.iterrows():
     query_id = row["query_id"]
     patterns = row["patterns"].split(TYPE)
     paper_ids = query_for_paper(patterns, TYPE)
-    joined_ids = TYPE.join(paper_ids)
+    joined_ids = ",".join(paper_ids)
     df["paper_ids"][idx] = joined_ids
 
-    print(f"query {query_id} ({len(paper_ids)}): {patterns}")
+    print(f"{query_id} ({len(paper_ids)}): {patterns}")
 
-df.to_csv(args.io_path, index=False)
+df.to_csv(args.io_path, sep=":", index=False)
